@@ -1,0 +1,15 @@
+<body>
+  <font face="verdana, sans-serif" style="caret-color: rgb(34, 34, 34); font-weight: normal; text-size-adjust: auto; text-decoration: none;">
+    <p>The following select list of Discovery and Design related documents were created or modified during the past seven days.:</font>
+  <div style="caret-color: rgb(34, 34, 34); font-weight: normal; text-size-adjust: auto; text-decoration: none;"><font face="verdana, sans-serif"></p></font></div><div style="caret-color: rgb(34, 34, 34); font-weight: normal; text-size-adjust: auto; text-decoration: none;">
+    <ul>
+    {% for item in searchResults recursive %}
+        <li>
+          <font face="verdana, sans-serif"><a href="{{ item.href }}">{{ item.name }}</a>, by <a href="mailto:{{ item.emailAddress }}">{{ item.displayName }}</a>&nbsp;
+            <span style="margin: 2px; padding: 2px; caret-color: rgb(255, 255, 255); color: rgb(255, 255, 255); font-size: x-small; background-color: #2196F3; border-radius: 4px 4px;">{{ item.solution }}</span>
+            <span style="margin: 2px; padding: 2px; caret-color: rgb(255, 255, 255); color: rgb(255, 255, 255); font-size: x-small; background-color: #4CAF50; border-radius: 4px 4px;">{{ item.stage }}</span>
+        </font>
+      </li>
+    {% endfor %}
+    </ul>
+</body>

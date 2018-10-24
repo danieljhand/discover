@@ -21,6 +21,8 @@ RECIPIENT_EMAIL = "recipient@domain.com"
 # Update to the user authenticating against the gmail api
 SENDER_EMAIL = "sender@domain.com"
 
+ANALYTICS_STR = "analytics string"
+
 
 def CreateDraft(service, user_id, message_body):
   """Create and insert a draft email. Print the returned draft's message and id.
@@ -80,6 +82,7 @@ env = Environment(
 template = env.get_template('emailTemplate.html')
 
 # define csv file to store historical data used to train the ML model
+
 data_csv_file = 'data.csv'
 
 # Google Drive API access
@@ -98,7 +101,7 @@ now = datetime.today() - timedelta(days=0)
 nowStr = now.replace(microsecond=0).isoformat('T')
 
 # Get date and time from the past (n days ago)
-then = now - timedelta(days=1)
+then = now - timedelta(days=7)
 thenStr = then.replace(microsecond=0).isoformat('T')
 
 
@@ -130,7 +133,7 @@ else:
             # Append data to a file for the purpose of possible future ML training.
             # TODO Supervised learning labels are curretly missing.
             dataWriter.writerow([item['createdTime'], item['modifiedTime'], item['name'], item['owners'][0]['displayName'],item['owners'][0]['emailAddress'], item['webViewLink']])
-        emailMessageBody = template.render(searchResults=searchResults)
+        emailMessageBody = template.render(searchResults=searchResults, analyticsStr=ANALYTICS_STR, digestTitle='etp-digest-'+now.strftime('%Y-%m-%d'))
     csvfile.close()
 
 # Call the Gmail v3 API
